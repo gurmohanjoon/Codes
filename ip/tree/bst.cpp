@@ -190,15 +190,7 @@ bool isBst(node * root, int minv,int maxv)
     return false;      
 
 }
-bool isBst(node * root, int minv,int maxv)
-{
-    if(root==nullptr)
-       {return true;}
-    if(root->data<=maxv && root->data>=minv && isBst(root->left,minv,root->data) && isBst(root->right,root->data,maxv))
-       {return true;}
-    return false;
-    return true;   
-}
+
 
 int main()
 {
