@@ -1,6 +1,7 @@
 #include<iostream>
 #include<queue>
 #include<climits>
+#include<set>
 using namespace std;
 class node
 {
@@ -245,7 +246,7 @@ linkedlist bsttoll(node * root)
 
 int main()
 {
-    node * root=buildtree();  //  5 1 2 3 4 6 7 8 9 -1
+    //node * root=buildtree();  //  5 1 2 3 4 6 7 8 9 -1
     //printorder(root);
      //printpre(root);
      //cout<<endl;
@@ -258,6 +259,16 @@ int main()
     // else
     //   {cout<<"False";}
     //bsttoll(root);
-
+    int arr[]={8,11,2,9,10,11,20,10};
+    int n=sizeof(arr)/sizeof(int);
+    set<int> s;
+    for(int i=0;i<n;i++)
+    {
+        s.insert(arr[i]);
+    }
+    for(set<int>::iterator it=s.begin();it!=s.end();it++)
+    {
+        cout<<*(it)<<" ";
+    }
     
 }
