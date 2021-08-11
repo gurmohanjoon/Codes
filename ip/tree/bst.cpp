@@ -1,5 +1,3 @@
-//  hello  hey its me
-//again
 #include<iostream>
 #include<queue>
 #include<climits>
@@ -192,6 +190,58 @@ bool isBst(node * root, int minv,int maxv)
 
 }
 
+//                      Make BsT into linked list
+class linkedlist
+{
+    public:
+    node * head;
+    node * tail;
+};
+
+linkedlist bsttoll(node * root)
+{
+    linkedlist l;
+    if(root==NULL)
+    {
+        l.head=l.tail=NULL;
+        return l;
+    }
+    if(root->left==NULL && root->right==NULL)
+    {
+        l.head=l.tail=root;
+        return l;
+    }
+    if(root->left!=NULL && root->right == NULL)
+    {
+        linkedlist leftll=bsttoll(root->left);
+        leftll.tail->right=root;
+
+        l.head=leftll.head;
+        l.tail=root;
+        return l;
+    }
+     if(root->left==NULL && root->right != NULL)
+    {
+       
+        linkedlist rightll=bsttoll(root->right);
+        rightll.head->left=root;
+
+        l.tail=rightll.tail;
+        l.head=root;
+        return l;
+    }
+
+    linkedlist leftll=bsttoll(root->left);
+    linkedlist rightll=bsttoll(root->right);
+
+    leftll.tail->right=root;
+    root->right=rightll.head;
+
+    l.head=leftll.head;
+    l.tail=rightll.tail;
+
+    return l;
+}
 
 int main()
 {
@@ -202,11 +252,12 @@ int main()
     // search(root);
     // root=deletenode(root,1);
     // print(root);
-    cout<<isBst(root,INT_MIN,INT_MAX)<<endl;
-    if(isBst(root,INT_MIN,INT_MAX))
-      {cout<<"True";}
-    else
-      {cout<<"False";}
+    // cout<<isBst(root,INT_MIN,INT_MAX)<<endl;
+    // if(isBst(root,INT_MIN,INT_MAX))
+    //   {cout<<"True";}
+    // else
+    //   {cout<<"False";}
+    //bsttoll(root);
 
     
 }
