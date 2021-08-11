@@ -266,9 +266,13 @@ int main()
     {
         s.insert(arr[i]);
     }
+    auto it=s.find(11);
+    s.erase(it);
+    s.erase(10);
     for(set<int>::iterator it=s.begin();it!=s.end();it++)
     {
         cout<<*(it)<<" ";
     }
+    s.erase(20);
     
 }
