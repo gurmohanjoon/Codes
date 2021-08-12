@@ -3,6 +3,8 @@
 #include<climits>
 #include<set>
 using namespace std;
+typedef multiset<int>::iterator it;
+
 class node
 {
     public:
@@ -192,6 +194,7 @@ bool isBst(node * root, int minv,int maxv)
 }
 
 //                      Make BsT into linked list
+
 class linkedlist
 {
     public:
@@ -259,20 +262,74 @@ int main()
     // else
     //   {cout<<"False";}
     //bsttoll(root);
-    int arr[]={8,11,2,9,10,11,20,10};
-    int n=sizeof(arr)/sizeof(int);
-    set<int> s;
-    for(int i=0;i<n;i++)
-    {
-        s.insert(arr[i]);
-    }
-    auto it=s.find(11);
-    s.erase(it);
-    s.erase(10);
-    for(set<int>::iterator it=s.begin();it!=s.end();it++)
-    {
-        cout<<*(it)<<" ";
-    }
-    s.erase(20);
+    // int arr[]={8,11,2,9,10,11,20,10};
+    // int n=sizeof(arr)/sizeof(int);
     
+    //               Set
+
+    // set<int> s;
+    // for(int i=0;i<n;i++)
+    // {
+    //     s.insert(arr[i]);
+    // }
+    // auto it=s.find(11);
+    // s.erase(it);
+    // s.erase(10);
+    // for(set<int>::iterator it=s.begin();it!=s.end();it++)
+    // {
+    //     cout<<*(it)<<" ";
+    // }
+    // s.erase(20);
+        // set<pair<int,int>> s;
+        // s.insert(make_pair(10,1));
+        // s.insert(make_pair(10,4));
+        // s.insert(make_pair(10,8));
+        // s.insert(make_pair(13,5));
+        // s.insert(make_pair(5,4));
+        // s.insert(make_pair(5,1));
+        // s.erase(s.find(make_pair(5,4)));
+        // s.insert(make_pair(8,9));
+        // auto it=s.lower_bound(make_pair(10,1));
+        // {
+        //    cout<<it->first<<" , "<<it->second<<endl;
+        // }
+        // auto its=s.upper_bound(make_pair(10,INT_MAX));
+        // {
+        //     cout<<its->first<<" , "<<its->second<<endl;
+        // }
+        // for(auto p:s)
+        // cout<<p.first<<" and "<<p.second<<endl;
+        
+        // Multiset -> That can store multiple elements that have same elements
+        // Sorted in specific -> Sorted according to internal comparision object
+        // int arr[]={10,20,10,30,20,30,30,30,40,30,10,76,88,96,80};
+        // int size=sizeof(arr)/sizeof(int);
+        // multiset<int> s(arr,arr+size);
+        // //s.erase(20);
+        // s.insert(33);
+        // for(int x:s)
+        // cout<<x<<" ";
+        // cout<<"\n"<<s.count(10)<<endl;
+        // auto io=s.find(30);
+        // cout<<(*io)<<endl;
+        // pair<it,it> p=s.equal_range(30);
+        // for(auto it =p.first;it!=p.second;it++)
+        //   cout<<*it<< " ";
+        // cout<<endl;
+        // //lower bound and upper bound 
+        // for(auto it=s.lower_bound(10);it!=s.upper_bound(80);it++)
+        //   cout<<*it<<" "; 
+        // pair<string,int> p1=make_pair("A",120);
+        // pair<string,int> p2=make_pair("B",34);
+        // pair<string,int> p3=make_pair("c",160);
+        // pair<string,int> p4=make_pair("D",30);
+        // multiset<pair<string,int>> s;
+        // s.insert(p1);
+        // s.insert(p2);
+        // s.insert(p3);
+        // s.insert(p4);
+        // for(auto p:s)
+        // cout<<p.first<<" "<<p.second<<endl;
+
+    return 0;
 }
