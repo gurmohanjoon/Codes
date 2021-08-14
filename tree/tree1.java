@@ -1,112 +1,210 @@
 import java.util.*;
 class tree1
 {
-    public static class treenode
+    class treenode
     {
-        int val=0;
+        int val;
         treenode left=null;
         treenode right=null;
-
         treenode(int val)
         {
             this.val=val;
-            System.out.println(this);
-        }    
+        }
+    };
+
+//                   Create tree
+
+    public static treenode createtree()
+    {
+        Scanner scn=new Scanner(System.in);
+        int  val=scn.nextInt();
+        if(val==-1)
+        {
+            return null;
+        }
+        treenode root=new treenode(val);
+        root.left=createtree();
+        root.right=createtree();
     }
+//            Print of tree    
+    public static void print(treenode root)
+    {
+        if(root==null)
+        return;
+        System.out.print(root.val + " ");
+        print(root.left);
+        print(root.right);
+    }
+
+//               Size of tree
+
     public static int size(treenode root)
     {
-        return root==null?0:size(root.left)+size(root.right)+1;
-    }
+        return root==null ? 0 : size(root.left) + size(root.right) +1;
+    }    
+
+//                Height of a tree 
+
     public static int height(treenode root)
     {
-        return root==null?-1:Math.max(height(root.left),height(root.right))+1;
+        return root==null ? -1 : Math.max(height(root.left) , height(root.right)) +1;
     }
+   
+//               max and min node of a tree    
+
     public static int max(treenode root)
     {
-        return root==null?-(int)1e9:Math.max(max(root),(Math.max(max(root.left),max(root.right))));
+         return root == null ? -(int)1e9 : Math.max(root.val,Math.max(max(root.left),max(root.right)));
     }
     public static int min(treenode root)
     {
-        return root==null?(int)1e9:Math.min(min(root),(Math.min(min(root.left),min(root.right))));
+         return root == null ? (int)1e9 : Math.min(root.val,Math.min(max(root.left),min(root.right)));
     }
+   
+//              Find the data 
+
     public static boolean find(treenode root,int data)
     {
         if(root==null)
         return false;
-         if(root.val==data)
-         return true;
-
-         return find(root.left,data) || find(root.right,data);
-    }
-    public static ArrayList<treenode> nodetoroot(treenode root,int data)
-    {
-        if(root==null)
-        return new ArrayList<>();
-
         if(root.val==data)
-        {
-            ArrayList<treenode> base=new ArrayList<>();
-            base.add(root);
-            return base;
-        }
-        ArrayList<treenode> left=nodetoroot(root.left,data);
-        if(left.size() !=0)
-        {
-            left.add(root);
-            return left;
-        }
-        ArrayList<treenode> right=nodetoroot(root.right,data);
-        if(right.size() !=0)
-        {
-            right.add(root);
-            return right;
-        }
-        return new ArrayList<>();
-
+        return true;
+        boolean res;
+        res=find(root.left,data);
+        res=find(root.left,data);
+        if(res)
+        return true;
+        else
+        return false;
     }
-    public static boolean nodetoroot2(treenode root,int data,ArrayList<treenode> ans)
+    public static boolean find2(treenode root,int data)
     {
         if(root==null)
         return false;
+        if(root.val==data)
+        return true;
+        return find2(root.left,data) || find2(root.right,data);
+    }
 
+//          Node to Root Path
+
+    public static boolean nodetorootpath(treenode root,ArrayList<treenode> ans,int data)
+    {
+        if(root==null)
+        {
+            return false;
+        }
         if(root.val==data)
         {
             ans.add(root);
             return true;
         }
-        boolean res = nodetoroot2(root.left,data,ans) ||  nodetoroot2(root.right,data,ans);
-        if(res);
-        ans.add(root);
-        return res;
+        // if(nodetorootpath(root.left,ans,data))
+        // {
+        //     ans.add(root.val);
+        //     return true;
+        // }
+        // if(nodetorootpath(root.right,ans,data))
+        // {
+        //     ans.add(root.val);
+        //     return true;
+        // }
+        // return false ;
+
+        boolean res = nodetorootpath(root.left,ans,data) || nodetorootpath(root.right,ans,data);
+        if(res)
+        ans.add(root);   
+        return res; 
 
     }
-    public static void roottoleaf(treenode root,ArrayList<ArrayList<Integer>> ans,ArrayList<Integer> smallans)
+
+    //         Node to all root path
+
+    public static void nodetoallnodepath(treenode root,ArrayList<ArrayList<Integer>> ans,ArrayList<Integer> smallans)
     {
-         if(root==null)
-         return;
-         if(root.left==null && root.left==null)
-         {
+        if(root==null )
+        return;
+        if(root.left==null && root.right==null)
+        {
             ArrayList<Integer> base=new ArrayList<>(smallans);
             base.add(root.val);
             ans.add(base);
-         }
-         smallans.add(root.val);
-         roottoleaf(root.left,ans,smallans);
-         roottoleaf(root.right,ans,smallans);
-         smallans.remove(smallans.size()-1);
+            return;
+        }
+        smallans.add(root.val);
+        nodetoallnodepath(root.left,ans,smallans);
+        nodetoallnodepath(root.right,ans,smallans);
+        smallans.remove(smallans.size()-1);
     }
-    public static ArrayList<ArrayList<Integer>> roottoleaf(treenode root)
+    public static ArrayList<ArrayList<Integer>> nodetoallnodepath(treenode root)
     {
-        ArrayList<ArrayList<Integer>> ans =new ArrayList<>();
-        ArrayList<Integer> smallans =new ArrayList<>();
-        roottoleaf(root,ans,smallans);
+        ArrayList<ArrayList<Integer>> ans;
+        ArrayList<Integer> smallans;
+        nodetoallnodepath(root,ans,smallans);
         return ans;
     }
 
-    public static void main(String[] args)    {
-        treenode node=new treenode(10);
-        //System.out.println(node);
-       
+    //                   Exactly one child
 
+    public static void onechild(treenode root,ArrayList<Integer> ans)
+    {
+        if(root==null || root.left==null && root.right==null )
+        return;
+        if(root.left==null || root.right==null)
+        ans.add(root.val);
+        onechild(root.left,ans);
+        onechild(root.right,ans);
+    }
+
+    public static ArrayList<Integer>  onechild(treenode root)
+    {
+        ArrayList<Integer> ans;
+        onechild(root,ans);
+        return ans;
+    }
+
+//                    K distance from the root all nodes
+
+    public static void kdown(treenode root,int k,treenode block,List<Integer>ans)
+    {
+        if(root==null || k<0 || root==block)
+        return;
+
+        if(k==0)
+        {
+            ans.add(root.val);
+            return;
+        }
+        kdown(root.left,k-1,block,ans);
+        kdown(root.right,k-1,block,ans);
+    }
+
+    public static int kdistance(treenode root, treenode target ,int k, List<Integer>ans)
+    {
+        if(root==null)
+           return -1;
+
+        if(root==target)
+        {
+            kdown(root,k,null,ans);
+            return 1;
+        }   
+        int l=(kdistance(root.left,target,k,ans));
+        if(l!=-1)
+        {
+            kdown(root,k-l,root.left,ans);
+            return l+1;
+        }
+        int r=(kdistance(root.left,target,k,ans));
+        if(l!=-1)
+        {
+            kdown(root,k-r,root.left,ans);
+            return r+1;
+        }
+        return -1;
+    }
+    public static void main(String[] args)
+    {
+         
     }
 }
