@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.ArrayList;
 class tree1
 {
     class treenode
@@ -10,11 +11,11 @@ class tree1
         {
             this.val=val;
         }
-    };
+    }
 
 //                   Create tree
 
-    public static treenode createtree()
+    public  treenode createtree()
     {
         Scanner scn=new Scanner(System.in);
         int  val=scn.nextInt();
@@ -25,6 +26,7 @@ class tree1
         treenode root=new treenode(val);
         root.left=createtree();
         root.right=createtree();
+        return root;
     }
 //            Print of tree    
     public static void print(treenode root)
@@ -120,7 +122,7 @@ class tree1
 
     //         Node to all root path
 
-    public static void nodetoallnodepath(treenode root,ArrayList<ArrayList<Integer>> ans,ArrayList<Integer> smallans)
+    public static void nodetoallnodepath2(treenode root,ArrayList<ArrayList<Integer>> ans,ArrayList<Integer> smallans)
     {
         if(root==null )
         return;
@@ -132,15 +134,15 @@ class tree1
             return;
         }
         smallans.add(root.val);
-        nodetoallnodepath(root.left,ans,smallans);
-        nodetoallnodepath(root.right,ans,smallans);
+        nodetoallnodepath2(root.left,ans,smallans);
+        nodetoallnodepath2(root.right,ans,smallans);
         smallans.remove(smallans.size()-1);
     }
     public static ArrayList<ArrayList<Integer>> nodetoallnodepath(treenode root)
     {
-        ArrayList<ArrayList<Integer>> ans;
-        ArrayList<Integer> smallans;
-        nodetoallnodepath(root,ans,smallans);
+        ArrayList<ArrayList<Integer>> ans=new ArrayList<>();
+        ArrayList<Integer> smallans=new ArrayList<>();
+        nodetoallnodepath2(root,ans,smallans);
         return ans;
     }
 
@@ -158,7 +160,7 @@ class tree1
 
     public static ArrayList<Integer>  onechild(treenode root)
     {
-        ArrayList<Integer> ans;
+        ArrayList<Integer> ans=new ArrayList<>();
         onechild(root,ans);
         return ans;
     }
@@ -205,6 +207,6 @@ class tree1
     }
     public static void main(String[] args)
     {
-         
+        
     }
 }
