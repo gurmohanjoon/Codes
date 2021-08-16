@@ -2,7 +2,7 @@ import java.util.*;
 import java.util.ArrayList;
 class tree1
 {
-    class treenode
+    public static class treenode
     {
         int val;
         treenode left=null;
@@ -15,7 +15,7 @@ class tree1
 
 //                   Create tree
 
-    public  treenode createtree()
+    public static treenode createtree()
     {
         Scanner scn=new Scanner(System.in);
         int  val=scn.nextInt();
@@ -119,6 +119,12 @@ class tree1
         return res; 
 
     }
+    public static ArrayList<treenode> nodetorootpath(treenode root,int data)
+    {
+        ArrayList<treenode> ans=new ArrayList<>();
+        nodetorootpath(root,ans,data);
+        return ans;
+    }
 
     //         Node to all root path
 
@@ -205,8 +211,42 @@ class tree1
         }
         return -1;
     }
+    public static List<Integer> kdistance2(treenode root,treenode target,int k)
+    { 
+        ArrayList<treenode> path = new ArrayList<>();
+        path=nodetorootpath(root,target.val);
+        List<Integer> ans = new ArrayList<>();
+        treenode block=null;
+        for(int i=0;i<path.size();i++)
+        {
+            kdown(path.get(i),k-i,block,ans);
+            block=path.get(i);
+        }
+        return ans;
+    }
+
+    //       Burning tree 
+
+    public static ArrayList<Integer> burningtree(treenode root,treenode target)
+    {
+        ArrayList<Integer> ans = new ArrayList<>();
+        int h=height(root);
+        for(int i=0;i<h;i++)
+        {
+            kdistance2(root,target,i);
+        }
+        return ans;
+    }
+
+
     public static void main(String[] args)
     {
-        
+        treenode t;
+        treenode root=createtree();
+        // 8 10 1 -1 -1 6 9 -1 -1 7 -1 -1 3 -1 14 13 -1 -1 -1
+       // 1 2 4 6 -1 -1 7 10 -1 -1  11 -1 -1 5 8 -1 -1 9 -1 -1  3 -1 -1
+       print(root);
+
+        //return 0;
     }
 }
