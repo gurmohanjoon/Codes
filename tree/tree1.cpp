@@ -44,6 +44,6 @@ void roottoleaf(treenode* root,vector<vector<int>> &ans,vector<int> &smallans)
 int main()
 {
     treenode *node=new treenode(10);
-    cout<<node;
+    cout<<node->val;
     return 0;
 }

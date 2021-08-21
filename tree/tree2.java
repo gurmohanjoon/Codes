@@ -1,6 +1,5 @@
 import java.util.*;
 //import tree1.treenode;
-tree1$treenode.class;
 class tree2
 {
      public static ArrayList<Integer> burningtree(tree1.treenode root,int target)
@@ -8,4 +7,7 @@ class tree2
     //     ArrayList<Integer> ans=new ArrayList<>();
     //     return ans;
     // }
+
+int a=-(int)1e9;
+
 }
