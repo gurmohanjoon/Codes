@@ -227,16 +227,7 @@ class tree1
 
     //       Burning tree 
 
-    public static ArrayList<Integer> burningtree(treenode root,treenode target)
-    {
-        ArrayList<Integer> ans = new ArrayList<>();
-        int h=height(root);
-        for(int i=0;i<h;i++)
-        {
-            kdistance2(root,target,i);
-        }
-        return ans;
-    }
+   public static void burningtreenode(treenode root,treenode )
 
 
     public static void main(String[] args)
