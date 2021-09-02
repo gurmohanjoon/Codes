@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.ArrayList;
 class tree1
@@ -5,11 +6,13 @@ class tree1
     public static class treenode
     {
         int val;
-        treenode left=null;
-        treenode right=null;
+        treenode left;
+        treenode right;
         treenode(int val)
         {
             this.val=val;
+            left=null;
+            right=null;
         }
     }
 
@@ -227,8 +230,111 @@ class tree1
 
     //       Burning tree 
 
-   public static void burningtreenode(treenode root,treenode )
+   public static void burningtreenode(treenode root,int time,treenode blockode,ArrayList<ArrayList<Integer>> ans)
+   {
+       if(root==null || root==blockode)
+         return ;
+       if(time==ans.size())
+          ans.add(new ArrayList<>());
+        ans.get(time).add(root.val);
+        
+        burningtreenode(root.left, time+1, blockode, ans);
+        burningtreenode(root.right, time+1, blockode, ans);
+         
 
+   }
+   public static int burningtreenode(treenode root,int firenode,ArrayList<ArrayList<Integer>>ans)
+   {
+        if(root==null)
+        return -1;
+        if(root.val==firenode)
+        {
+            burningtreenode(root,0,null,ans);
+            return 1;
+        }
+        int lt=burningtreenode(root.left, firenode, ans);
+        if(lt!=-1)
+        {
+            burningtreenode(root, lt, root.left, ans);
+            return lt+1;
+        }
+        int rt=burningtreenode(root.right, firenode, ans);
+        if(rt!=-1)
+        {
+            burningtreenode(root, rt, root.right, ans);
+            return rt+1;
+        }
+        return -1;
+   }
+   public static void burningtreenode(treenode root,int data)
+   {
+        ArrayList<ArrayList<Integer>> ans=new ArrayList<>();
+        burningtreenode(root,data,ans);
+   }
+
+   //                      Node with water and ice
+   
+   public static void burningtreewithwater(treenode root,int time,treenode blockode,HashSet<Integer> waterset,ArrayList<ArrayList<Integer>> ans)
+   {
+       if(root==null || root==blockode || waterset.contains(root.val))
+         return ;
+       if(time==ans.size())
+          ans.add(new ArrayList<>());
+        ans.get(time).add(root.val);
+        
+        burningtreenode(root.left, time+1, blockode, ans);
+        burningtreenode(root.right, time+1, blockode, ans);
+         
+
+   }
+   public static int burningtreewithwater(treenode root,int firenode,HashSet<Integer> waterset,ArrayList<ArrayList<Integer>>ans)
+   {
+        if(root==null)
+        return -1;
+        if(root.val==firenode)
+        {
+            if(!waterset.contains(root.val))
+            {
+              burningtreewithwater(root,0,null,waterset,ans);
+              return 1;
+            }
+            return -2;
+        }
+        int lt=burningtreewithwater(root.left, firenode,waterset, ans);
+        if(lt>0)
+        {
+            if(!waterset.contains(root.val))
+            {
+                burningtreewithwater(root, lt, root.left,waterset, ans);
+                return lt+1;
+            }
+            return -2;
+        }
+        if(lt==-2)
+        {return -2;}
+        int rt=burningtreewithwater(root.right, firenode,waterset, ans);
+        if(rt!=-1)
+        {
+            if(!waterset.contains(root.val))
+            {
+                burningtreewithwater(root, rt, root.right,waterset, ans);
+                return rt+1;
+            }
+            return -2;
+        }
+        if(rt==-2)
+        {return -2;}
+        return -1;
+   }
+
+   public static void burningtreewithwater(treenode root,int data)
+   {
+       HashSet<Integer> waterset = new HashSet<>();
+       ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
+
+       burningtreewithwater(root,data,waterset,ans);
+       System.out.println(ans);
+   }
 
     public static void main(String[] args)
     {
