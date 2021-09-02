@@ -336,6 +336,30 @@ class tree1
        System.out.println(ans);
    }
 
+   //            Lowest Common Ancesstor
+   treenode lcanode;
+   public boolean lca(treenode root,treenode p,treenode q)
+   {
+      if(root==null)
+      return false;
+      boolean self=(root==p||root==q);
+      boolean left=lca(root.left,p,q);
+      {
+          if(lcanode!= null)
+          return true;
+      }
+      boolean right=lca(root.right,p,q);
+      {
+        if(lcanode!= null)
+        return true;
+      }
+      if((left && right) || (left && self) || (right && self))
+      {
+          lcanode=root;
+      }
+      return left||right||self;
+    }
+
     public static void main(String[] args)
     {
         treenode t;
