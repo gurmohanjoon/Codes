@@ -323,7 +323,9 @@ class tree1
             return -2;
         }
         if(rt==-2)
-        {return -2;}
+        {
+            return -2;
+        }
         return -1;
    }
 

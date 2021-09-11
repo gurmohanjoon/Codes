@@ -84,6 +84,11 @@ class tree2
 
    }
 
+   for(int x:n)
+   {
+       
+   }
+
    //               LCA of BST
 
    public static treenode lca(treenode root,treenode p,treenode q)
