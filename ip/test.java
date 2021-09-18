@@ -1,39 +1,34 @@
 import java.util.*;
-class test
-{
-    public static void pair(String s)
-    {
-        int count=0;
-        int Rpair=0;
-        int Lpair=0;
-        int size=s.length();
-        
-        for(int i=0;i<size;i++)
-        { 
-            for(int j=0;j<size;j++)
-            {
-                int a=s.charAt(i);
-                int b=s.charAt(i);
-                if(a==b && a=='R')
-                {
-                    Rpair++;
-                
-                }
-                if(a==b && a=='L')
-                {
-                    Lpair++;
-                
-                }
-
+class test{
+    public static String longestPalindrome(String s) {
+        int start = 0;
+        int end = 0;
+        if(s == null || s.length() < 1)
+            return null;
+        for(int i=0; i<s.length(); i++){
+            int len1 = pald(s,i,i);
+            int len2 = pald(s,i,i+1);
+            int length = Math.max(len1, len2);
+            if(length > end-start){
+                start = i-((length-1)/2);
+                end = i+(length/2);
             }
-            if(Rpair==Lpair)
-            {
-                count++;
-            }
-
-            
         }
-            
-   
+        return s.substring(start,end+1);
+    }
+    public static int pald(String s, int start, int end){
+        if(s == null || start > end) return 0;
+        while(start >= 0 && end < s.length() && s.charAt(start) == s.charAt(end)){
+            start--;
+            end++;
+        }
+        return end-start-1;
+    }
+    public static void main(String[] args)
+    {
+        Scanner scn=new Scanner(System.in);
+        String s=scn.nextLine();
+        System.out.print(longestPalindrome(s));
+        
     }
 }
